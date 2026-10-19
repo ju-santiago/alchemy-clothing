@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha conta | Alchemy Clothing</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .account-page {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            background: #f5f5f5;
+        }
+
+        .account-card {
+            width: 100%;
+            max-width: 460px;
+            padding: 36px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .account-card h1 {
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .account-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .account-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 26px;
+        }
+
+        .account-tabs button {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: #fff;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .account-tabs button.active {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        .account-form {
+            display: none;
+        }
+
+        .account-form.active {
+            display: block;
+        }
+
+        .account-field {
+            margin-bottom: 18px;
+        }
+
+        .account-field label {
+            display: block;
+            margin-bottom: 7px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .account-field input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font: inherit;
+            box-sizing: border-box;
+        }
+
+        .account-field input:focus {
+            outline: 2px solid #777;
+            outline-offset: 2px;
+        }
+
+        .account-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 5px;
+            background: #111;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .account-submit:hover {
+            background: #333;
+        }
+
+        .account-notice {
+            margin-top: 22px;
+            padding: 12px;
+            background: #f0f0f0;
+            color: #555;
+            border-radius: 5px;
+            font-size: 12px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .account-feedback {
+            display: none;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 5px;
+            background: #f0f0f0;
+            color: #222;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .account-feedback.visible {
+            display: block;
+        }
+
+        .account-back {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #333;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .account-card {
+                padding: 24px 18px;
+            }
+
+            .account-card h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <p>✦ FRETE GRÁTIS PARA TODO O BRASIL ACIMA DE R$299 ✦</p>
+    </div>
+
+    <header class="header">
+        <button class="menu-toggle" id="menuToggle"
+            aria-label="Abrir menu" aria-expanded="false"
+            aria-controls="menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="menu" id="menu">
+            <a href="index.html">Home</a>
+            <a href="camisetas.html">Coleções</a>
+            <a href="camisetas.html">Camisetas</a>
+            <a href="sobre.html">Sobre Nós</a>
+            <a href="contato.html">Contato</a>
+        </nav>
+
+        <a href="index.html" class="logo">
+            <img src="assets/images/logo.png" alt="Alchemy Clothing">
+        </a>
+
+        <div class="header-actions">
+            <a href="camisetas.html?buscar=1" aria-label="Buscar produtos">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </a>
+
+            <a href="conta.html" aria-label="Minha conta">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+
+            <a href="carrinho.html" aria-label="Carrinho">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <main class="account-page">
+        <section class="account-card">
+            <h1 id="account-title">Minha conta</h1>
+            <p class="account-subtitle" id="account-subtitle">
+                Entre ou crie sua conta para continuar.
+            </p>
+
+            <div class="account-tabs">
+                <button type="button" class="active"
+                    id="login-tab" aria-pressed="true">
+                    Entrar
+                </button>
+                <button type="button"
+                    id="register-tab" aria-pressed="false">
+                    Criar conta
+                </button>
+            </div>
+
+            <div id="account-feedback"
+                class="account-feedback"
+                role="status" aria-live="polite"></div>
+
+            <form id="login-form" class="account-form active">
+                <div class="account-field">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email"
+                        autocomplete="email" required>
+                </div>
+
+                <div class="account-field">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password"
+                        autocomplete="current-password"
+                        minlength="6" required>
+                </div>
+
+                <button type="submit" class="account-submit">
+                    Entrar
+                </button>
+            </form>
+
+            <form id="register-form" class="account-form">
+                <div class="account-field">
+                    <label for="register-name">Nome completo</label>
+                    <input type="text" id="register-name"
+                        autocomplete="name" minlength="2" required>
+                </div>
+
+                <div class="account-field">
+                    <label for="register-email">E-mail</label>
+                    <input type="email" id="register-email"
+                        autocomplete="email" required>
+                </div>
+
+                <div class="account-field">
+                    <label for="register-password">Criar senha</label>
+                    <input type="password" id="register-password"
+                        autocomplete="new-password"
+                        minlength="6" required>
+                </div>
+
+                <div class="account-field">
+                    <label for="confirm-password">Confirmar senha</label>
+                    <input type="password" id="confirm-password"
+                        autocomplete="new-password"
+                        minlength="6" required>
+                </div>
+
+                <button type="submit" class="account-submit">
+                    Criar conta
+                </button>
+            </form>
+
+            <p class="account-notice">
+                Protótipo demonstrativo de portfólio.
+                O login e o cadastro não realizam autenticação real.
+                Nenhum dado ou senha é enviado ou armazenado.
+                Não utilize senhas reais.
+            </p>
+
+            <a href="index.html" class="account-back">
+                Voltar para a loja
+            </a>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+
+    <script>
+        const loginTab = document.getElementById('login-tab');
+        const registerTab = document.getElementById('register-tab');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const feedback = document.getElementById('account-feedback');
+        const title = document.getElementById('account-title');
+        const subtitle = document.getElementById('account-subtitle');
+
+        function showFeedback(message) {
+            feedback.textContent = message;
+            feedback.classList.add('visible');
+        }
+
+        function switchForm(mode) {
+            const isLogin = mode === 'login';
+
+            loginForm.classList.toggle('active', isLogin);
+            registerForm.classList.toggle('active', !isLogin);
+
+            loginTab.classList.toggle('active', isLogin);
+            registerTab.classList.toggle('active', !isLogin);
+
+            loginTab.setAttribute('aria-pressed', String(isLogin));
+            registerTab.setAttribute('aria-pressed', String(!isLogin));
+
+            title.textContent = isLogin ? 'Minha conta' : 'Criar conta';
+            subtitle.textContent = isLogin
+                ? 'Entre ou crie sua conta para continuar.'
+                : 'Preencha os dados para experimentar o cadastro.';
+
+            feedback.classList.remove('visible');
+        }
+
+        loginTab.addEventListener('click', () => switchForm('login'));
+        registerTab.addEventListener('click', () => switchForm('register'));
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (!loginForm.reportValidity()) return;
+
+            showFeedback(
+                'Demonstração: o formulário foi validado, mas o login real ainda não está implementado. Nenhum dado foi enviado ou salvo.'
+            );
+
+            loginForm.reset();
+        });
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (!registerForm.reportValidity()) return;
+
+            const password = document.getElementById('register-password');
+            const confirmation = document.getElementById('confirm-password');
+
+            if (password.value !== confirmation.value) {
+                confirmation.setCustomValidity('As senhas não coincidem.');
+                confirmation.reportValidity();
+                confirmation.addEventListener('input', function clearError() {
+                    confirmation.setCustomValidity('');
+                    confirmation.removeEventListener('input', clearError);
+                });
+                return;
+            }
+
+            showFeedback(
+                'Demonstração: os campos foram validados, mas o cadastro real ainda não está implementado. Nenhum dado foi enviado ou salvo.'
+            );
+
+            registerForm.reset();
+        });
+    </script>
+</body>
+</html>
