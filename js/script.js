@@ -158,7 +158,6 @@ document.querySelectorAll('.add-btn').forEach(btn => {
     });
 });
 
-
 /* ---------- PESQUISA DE PRODUTOS ---------- */
 const campoPesquisa = document.getElementById('product-search');
 const botaoPesquisa = document.getElementById('search-button');
@@ -217,8 +216,10 @@ if (campoPesquisa && botaoPesquisa && gradeProdutos) {
             quantidadeVisivel === 0 ? 'block' : 'none';
     }
 
+    // Pesquisar ao clicar no botão
     botaoPesquisa.addEventListener('click', pesquisarProdutos);
 
+    // Pesquisar ao pressionar Enter
     campoPesquisa.addEventListener('keydown', evento => {
         if (evento.key === 'Enter') {
             evento.preventDefault();
@@ -226,9 +227,16 @@ if (campoPesquisa && botaoPesquisa && gradeProdutos) {
         }
     });
 
+    // Atualizar os resultados enquanto digita
     campoPesquisa.addEventListener('input', pesquisarProdutos);
-}
 
+    // Abrir a pesquisa automaticamente ao clicar na lupa do cabeçalho
+    const parametros = new URLSearchParams(window.location.search);
+
+    if (parametros.get('buscar') === '1') {
+        campoPesquisa.focus();
+    }
+}
 
 /* ---------- PÁGINA DO CARRINHO ---------- */
 const FRETE_GRATIS = 299;
