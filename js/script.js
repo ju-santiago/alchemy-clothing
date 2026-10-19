@@ -159,6 +159,77 @@ document.querySelectorAll('.add-btn').forEach(btn => {
 });
 
 
+/* ---------- PESQUISA DE PRODUTOS ---------- */
+const campoPesquisa = document.getElementById('product-search');
+const botaoPesquisa = document.getElementById('search-button');
+const gradeProdutos = document.querySelector('.products-grid');
+const contadorProdutos = document.querySelector('.shop-count');
+
+if (campoPesquisa && botaoPesquisa && gradeProdutos) {
+    const cards = Array.from(
+        gradeProdutos.querySelectorAll('.product-card')
+    );
+
+    const mensagemVazia = document.createElement('p');
+    mensagemVazia.className = 'search-empty-state';
+    mensagemVazia.textContent = 'Nenhum produto encontrado.';
+    mensagemVazia.style.textAlign = 'center';
+    mensagemVazia.style.padding = '24px';
+    mensagemVazia.style.display = 'none';
+
+    gradeProdutos.insertAdjacentElement('afterend', mensagemVazia);
+
+    function normalizarTexto(texto) {
+        return texto
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .trim();
+    }
+
+    function pesquisarProdutos() {
+        const termo = normalizarTexto(campoPesquisa.value);
+        let quantidadeVisivel = 0;
+
+        cards.forEach(card => {
+            const titulo = card.querySelector('h3');
+            const nomeProduto = normalizarTexto(
+                titulo ? titulo.textContent : ''
+            );
+
+            const corresponde = nomeProduto.includes(termo);
+
+            card.style.display = corresponde ? '' : 'none';
+
+            if (corresponde) {
+                quantidadeVisivel++;
+            }
+        });
+
+        if (contadorProdutos) {
+            contadorProdutos.textContent =
+                `${quantidadeVisivel} ${
+                    quantidadeVisivel === 1 ? 'produto' : 'produtos'
+                }`;
+        }
+
+        mensagemVazia.style.display =
+            quantidadeVisivel === 0 ? 'block' : 'none';
+    }
+
+    botaoPesquisa.addEventListener('click', pesquisarProdutos);
+
+    campoPesquisa.addEventListener('keydown', evento => {
+        if (evento.key === 'Enter') {
+            evento.preventDefault();
+            pesquisarProdutos();
+        }
+    });
+
+    campoPesquisa.addEventListener('input', pesquisarProdutos);
+}
+
+
 /* ---------- PÁGINA DO CARRINHO ---------- */
 const FRETE_GRATIS = 299;
 
