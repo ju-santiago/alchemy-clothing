@@ -84,9 +84,23 @@
     </section>
 
 <!-- FILTROS -->
-    <section class="shop">
+
+<section class="shop">
 
     <div class="shop-toolbar">
+
+        <div class="product-search">
+            <input
+                type="search"
+                id="product-search"
+                placeholder="Buscar produtos..."
+                aria-label="Buscar produtos"
+            >
+            <button type="button" id="search-button">
+                Buscar
+            </button>
+        </div>
+
         <div class="filters">
             <button class="filter-btn active">Todas</button>
             <button class="filter-btn">Oversized</button>
@@ -101,8 +115,10 @@
                 <option>Menor preço</option>
                 <option>Maior preço</option>
             </select>
-            </div>
+        </div>
+
     </div>
+</section>
 
 <!-- LISTA DE PRODUTOS -->
     <div class="products-grid">
